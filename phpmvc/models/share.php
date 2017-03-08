@@ -6,7 +6,7 @@
 		{
 			$this->query('SELECT * FROM shares');
 			$rows = $this->resultSet();
-			return $rows;
+			echo json_encode($rows);
 		}
 
 		public function add()

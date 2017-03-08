@@ -1,5 +1,5 @@
 <?php
-
+	header("Access-Control-Allow-Origin: null");
 	// Include Config 
 	require('config.php');
 
