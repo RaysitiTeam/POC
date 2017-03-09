@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-default">
+	<!-- <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,17 +30,17 @@
             <li><a href="<?php echo ROOT_URL ?>users/login">Login</a></li>
             <li><a href="<?php echo ROOT_URL ?>users/register">Register</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
-    </nav>
+    </nav> -->
 
-    <div class="container">
+    <!-- <div class="container">
 
       <div class="row">
       	<?php require($view); ?>
       </div>
 
-    </div><!-- /.container -->
+    </div> --><!-- /.container -->
 
 </body>
 </html>
