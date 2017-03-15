@@ -9,17 +9,22 @@
 </head>
 <body>
 
-	<a class="btn btn-info" onclick="getSummary(null)">Shares</a>
+<hr>
+	<div class="container">
 
-	<div id="summary">This is Text.</div>
+		<a class="btn btn-info" onclick="getSummary()">Shares</a>
+
+		<div id="summary">This is Text.</div>
+
+	</div>
 
 
 	<script type="text/javascript">
-		function getSummary(id)
+		function getSummary()
 		{
 		    $.ajax({
 		        url : 'http://localhost/phpmvc/shares',
-		        data:{"id":id},
+		        //data:null,
 		        type: 'GET',
 		        
 
@@ -31,40 +36,7 @@
 	</script>
 
 
-	<!-- <script type="text/javascript">
-		function getSummary(id)
-		{
-   			$.ajax({
 
-     			type: "GET",
-     			url: 'http://localhost/phpmvc/shares',
-     			dataType: 'jsonp',
-     			data: "id=" + id, // appears as $_GET['id'] @ your backend side
-     			jsonp: "callback",
-     			jsonpCallback: "myFunc",
-			    success: function(data) { debugger;
-
-			    	if(data != null) {
-			    		var obj = JSON.parse(data);
-			    		// data is ur summary
-	          			$('#summary').html(data);
-			    	}
-	 
-     			}	
-
-   			});
-   		}
-	</script> -->
-
-	<!-- <script>
-		$(document).ready(function(){
-		    $("a").click(function(){ debugger;
-		        $.ajax({url: "http://localhost/phpmvc/shares", dataType: "jsonp", success: function(result){debugger;
-		            $("#summary").html(result);
-		        }});
-		    });
-		});
-	</script> -->
 
 
 </body>
