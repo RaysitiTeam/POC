@@ -8,13 +8,17 @@
 	require('classes/Controller.php');
 	require('classes/Model.php');
 
+	// Require Controllers
 	require('controllers/home.php');
 	require('controllers/shares.php');
 	require('controllers/users.php');
+	require('controllers/customers.php');
 
+	// Require Models
 	require('models/home.php');
 	require('models/share.php');
 	require('models/user.php');
+	require('models/customer.php');
 
 	$bootstrap = new Bootstrap($_GET);
 

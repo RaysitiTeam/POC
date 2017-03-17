@@ -2,13 +2,13 @@
 
 	class Users extends Controller
 	{
-		public function register()
+		protected function register()
 		{
 			$viewmodel = new UserModel();
 			$this->ReturnView($viewmodel->register(), true);
 		}
 
-		public function login()
+		protected function login()
 		{
 			$viewmodel = new UserModel();
 			$this->ReturnView($viewmodel->login(), true);

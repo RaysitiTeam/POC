@@ -17,7 +17,13 @@
 				$this->bind(':email', 		$email);
 				$this->bind(':password', 	$password);
 
-				$this->execute();
+				$result = $this->execute();
+
+				if($this->lastInsertId()) {
+					echo json_encode("true");
+				} else {
+					echo json_encode("false");
+				}
 
 		}
 
@@ -29,20 +35,17 @@
 			$email		=	$_POST['email'];
 			$password 	= 	md5($post['password']);
 
-			if($post['submit']) {
 				// Compare Login
 				$this->query('SELECT * FROM users WHERE email = :email AND password = :password');
-				$this->bind(':email', 		$email;
+				$this->bind(':email', 		$email);
 				$this->bind(':password', 	$password);
 
 				$row = $this->single();
 			
 				if($row){
-					echo "Logged In." ;
+					echo json_encode("true");
 				} else {
-					echo "Incorrect Login.";
+					echo json_encode("false");
 				}
-			}
-			return;
 		}
 	}

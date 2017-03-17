@@ -11,6 +11,7 @@
 
 <hr>
 	<div class="container">
+		<div id="result"></div>
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Register User</h3>
@@ -40,7 +41,7 @@
 
 		<a class="btn btn-info" onclick="getSummary()">Shares</a>
 
-		<div id="summary">This is Text.</div>
+		<div id="summary"></div>
 
 	</div>
 
@@ -62,9 +63,6 @@
 	</script>
 
 
-
-
-
 	<script>
 		$(function(){
 			$('form').on('submit', function(e){
@@ -75,8 +73,19 @@
 					type: 'POST',
 					url: "http://localhost/phpmvc/users/register", 
 					data: $('form').serialize(),
-					success: function() {
-						alert('Registration Successful!');
+					dataType: 'json',
+					success: function(res) {
+						if(res=='true')
+						{
+							$("#result").html('Success');
+						}
+						else
+						{
+							$("#result").html('Failed');
+						}
+					},
+					error: function(xhr) {
+						$("#result").html('Failed');
 					}
 				});	
 			});

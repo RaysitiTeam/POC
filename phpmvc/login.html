@@ -12,6 +12,7 @@
 <hr>
 
 	<div class="container">
+		<div id="result"></div>
 		<div class="panel panel-default">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">User Login</h3>
@@ -48,8 +49,19 @@
 					type: 'POST',
 					url: "http://localhost/phpmvc/users/login", 
 					data: $('form').serialize(),
-					success: function() {
-						alert('Login Successful!');
+					dataType:'json',
+					success: function(res) {
+						if(res=='true')
+						{
+							$("#result").html('Success');
+						}
+						else
+						{
+							$("#result").html('Failed');
+						}
+					},
+					error: function(xhr) {
+						$("#result").html('Error');
 					}
 				});	
 			});
