@@ -1,8 +1,21 @@
 <?php
-	abstract class Model
+	class Model
 	{
+		public static $_instance;		// The single instance
 		protected $dbh;
 		protected $stmt;
+
+		// Get an instance of the Database 
+	    // @return  instance
+	    public static function getInstance()
+	    {
+	    	if(!self::$_instance){
+	    		// If no instance then make one
+	    		self::$_instance = new self();
+	    	}
+
+	    	return self::$_instance;
+	    }
 
 		public function __construct()
 		{
@@ -46,6 +59,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function fetch()
+		{
+			$this->execute();
+			return $this->stmt->fetch();
+		}
+
 		public function lastInsertId()
 		{
 			return $this->dbh->lastInsertId();
@@ -57,3 +76,10 @@
 			return $this->stmt->fetch(PDO::FETCH_ASSOC);
 		}
 	}
+
+
+
+
+
+
+	

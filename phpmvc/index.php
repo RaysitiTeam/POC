@@ -13,12 +13,14 @@
 	require('controllers/shares.php');
 	require('controllers/users.php');
 	require('controllers/customers.php');
+	require('controllers/orders.php');
 
 	// Require Models
 	require('models/home.php');
 	require('models/share.php');
 	require('models/user.php');
 	require('models/customer.php');
+	require('models/order.php');
 
 	$bootstrap = new Bootstrap($_GET);
 

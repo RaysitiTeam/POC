@@ -25,4 +25,22 @@
 			$viewmodel = new CustomerModel();
 			$this->ReturnView($viewmodel->login(), true);
 		}
+
+		protected function changePassword()
+		{
+			$viewmodel = new CustomerModel();
+			$this->ReturnView($viewmodel->changePassword(), true);
+		}
+
+		protected function forgetPassword()
+		{
+			$viewmodel = new CustomerModel();
+			$this->ReturnView($viewmodel->forgetPassword(), true);	
+		}
+
+		protected function updateCustomer()
+		{
+			$viewmodel = new CustomerModel();
+			$this->ReturnView($viewmodel->updateCustomer(), true);	
+		}
 	}
