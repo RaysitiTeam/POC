@@ -4,34 +4,8 @@
 	{
 
 		// Place an Order
-		public function placeOrder()
+		public function placeOrder($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid, $bookid, $quantity, $bookprice, $bookdiscount, $actualprice)
 		{
-
-			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-			$ordernumber 		= $_POST['ordernumber'];
-			$customerid 		= $_POST['customerid'];
-			$orderstatusid 		= $_POST['orderstatusid'];
-			$paymentmode 		= $_POST['paymentmode'];
-			$ordertotalprice 	= $_POST['ordertotalprice'];
-			$totaldiscount 		= $_POST['totaldiscount'];
-			$paymentfulfilled 	= $_POST['paymentfulfilled'];
-			$houseno 			= $_POST['houseno'];
-			$addressline1 		= $_POST['addressline1'];
-			$addressline2 		= $_POST['addressline2'];
-			$city 				= $_POST['city'];
-			$state 				= $_POST['state'];
-			$country 			= $_POST['country'];
-			$zipcode 			= $_POST['zipcode'];
-			$mobileno 			= $_POST['mobileno'];
-			$createdby 			= $_POST['createdby'];
-			$subscriberid 		= $_POST['subscriberid'];
-			$bookid 			= $_POST['bookid'];
-			$quantity 			= $_POST['quantity'];
-			$bookprice 			= $_POST['bookprice'];
-			$bookdiscount 		= $_POST['bookdiscount'];
-			$actualprice 		= $_POST['actualprice'];
-			// $alerttypeid 		= $_POST['alerttypeid'];
 
 			$sql ="CALL `zen`.`placeOrder`(:ordernumber, :customerid, :orderstatusid, :paymentmode, :ordertotalprice, :totaldiscount, :paymentfulfilled, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :mobileno, :createdby, :subscriberid, :bookid, :quantity, :bookprice, :bookdiscount, :actualprice);";
 
@@ -135,9 +109,9 @@
 
 
 		// Get Order Details by Id
-		public function getOrderDetails()
+		public function getOrderDetails($id)
 		{
-			$id = $_POST['id'];
+			
 
 			try
 			{
@@ -160,9 +134,8 @@
 
 
 		// Get Order for Customer
-		public function getOrderForCustomer()
+		public function getOrderForCustomer($id)
 		{
-			$id = $_POST['id'];
 
 			try
 			{
@@ -185,12 +158,8 @@
 
 
 		// Update Order
-		public function updateOrder()
+		public function updateOrder($id, $orderstatusid, $modifiedby)
 		{
-			$id = $_POST['id'];
-
-			$orderstatusid 			= $_POST['orderstatusid'];
-			$modifiedby 			= $_POST['modifiedby'];
 
 			try
 			{
