@@ -1,15 +1,12 @@
 <?php
 
+	//include('controllers/users.php');
+	
 	class UserModel extends Model
 	{
-		public function register()
-		{
-			// Sanitize Post
-			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-			$name		=	$_POST['name'];
-			$email		=	$_POST['email'];
-			$password 	= 	md5($post['password']);
+		public function register($name, $email, $password)
+		{
 
 				// Insert into mysql
 				$this->query('INSERT INTO users(name, email, password) VALUES(:name, :email, :password)');
@@ -29,11 +26,6 @@
 
 		public function login()
 		{
-			// Sanitize Post
-			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-			$email		=	$_POST['email'];
-			$password 	= 	md5($post['password']);
 
 				// Compare Login
 				$this->query('SELECT * FROM users WHERE email = :email AND password = :password');
