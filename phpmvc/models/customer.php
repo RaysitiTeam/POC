@@ -10,33 +10,10 @@
 
 
 		// Customer Registration
-		public function register()
+		public function register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $customeraddresstype, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $createdby)
 		{
 			// Get Database Instance
 			//$db = model::getInstance();
-
-			// Senitize Post data
-			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-			$customername 			= $_POST['customername'];
-			$customertypeid 		= $_POST['customertypeid'];
-			$dateofbirth 			= $_POST['dateofbirth'];
-			$lastlogindate 			= $_POST['lastlogindate'];
-			$userid 				= $_POST['userid'];
-			$password 				= $_POST['password'];
-			$secretquestion 		= $_POST['secretquestion'];
-			$secretanswer 			= $_POST['secretanswer'];
-			$mobileno 				= $_POST['mobileno'];
-			$emailaddress 			= $_POST['emailaddress'];
-			$customeraddresstype 	= $_POST['customeraddresstype'];
-			$houseno				= $_POST['houseno'];
-			$addressline1			= $_POST['addressline1'];
-			$addressline2			= $_POST['addressline2'];
-			$city 					= $_POST['city'];
-			$state 					= $_POST['state'];
-			$country 				= $_POST['country'];
-			$zipcode 				= $_POST['zipcode'];
-			$createdby 				= $_POST['createdby'];
 
 			$sql = "CALL `zen`.`registerCustomer`(:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :createdby)";
 
@@ -96,17 +73,11 @@
 
 
 		// Customer Login
-		public function login()
+		public function login($userid, $password)
 		{
 
 			date_default_timezone_set("Asia/Kolkata");
 			$currentDate = date('Y-m-d g:i:sA');
-
-			// Sanitize Post
-			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-			$userid			=	$_POST['userid'];
-			$password 		= 	$_POST['password'];
 
 			$sqllogin = 'SELECT * FROM customer WHERE userid = :userid AND password = :password';
 
@@ -180,12 +151,8 @@
 
 
 		// Change Password
-		public function changePassword()
+		public function changePassword($userid, $password)
 		{
-
-
-			$userid				= $_POST['userid'];
-			$password			= $_POST['password'];
 
 			$sqloldpass = "SELECT customerid, customername, password, emailaddress FROM customer WHERE userid = :userid";
 
@@ -271,14 +238,9 @@
 
 
 		// Forget Password
-		public function forgetPassword()
+		public function forgetPassword($userid, $emailaddress, $secretanswer)
 		{
-			$userid			= $_POST['userid'];
-			$emailaddress	= $_POST['emailaddress'];
-			$secretanswer	= $_POST['secretanswer'];
-
-
-
+	
 			$sqlsecretqus = "SELECT customerid, userid, secretquestion, secretanswer FROM customer WHERE emailaddress = :emailaddress AND secretanswer = :secretanswer";
 
 			try
@@ -324,27 +286,8 @@
 
 
 		// Update Customer
-		public function updateCustomer()
+		public function updateCustomer($customername, $customertypeid, $dateofbirth, $mobileno, $emailaddress, $customeraddresstype, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $modifiedby)
 		{
-
-			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-			$id = $_POST['id'];
-
-			$customername 			= $_POST['customername'];
-			$customertypeid 		= $_POST['customertypeid'];
-			$dateofbirth 			= $_POST['dateofbirth'];
-			$mobileno 				= $_POST['mobileno'];
-			$emailaddress 			= $_POST['emailaddress'];
-			$customeraddresstype 	= $_POST['customeraddresstype'];
-			$houseno 				= $_POST['houseno'];
-			$addressline1 			= $_POST['addressline1'];
-			$addressline2 			= $_POST['addressline2'];
-			$city 					= $_POST['city'];
-			$state 					= $_POST['state'];
-			$country 				= $_POST['country'];
-			$zipcode 				= $_POST['zipcode'];
-			$modifiedby 			= $_POST['modifiedby'];
 
 			$sqlupdate = "CALL `zen`.`editCustomer`(:customername, :customertypeid, :dateofbirth, :mobileno, :emailaddress, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :modifiedby, :id)";
 
