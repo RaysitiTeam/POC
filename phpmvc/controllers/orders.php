@@ -37,12 +37,24 @@
 			$mobileno 			= $_POST['mobileno'];
 			$createdby 			= $_POST['createdby'];
 			$subscriberid 		= $_POST['subscriberid'];
-			$bookid 			= $_POST['bookid'];
-			$quantity 			= $_POST['quantity'];
-			$bookprice 			= $_POST['bookprice'];
-			$bookdiscount 		= $_POST['bookdiscount'];
-			$actualprice 		= $_POST['actualprice'];
+			$bookid_array 				= $_POST['bookid'];
+			$quantity_array 			= $_POST['quantity'];
+			$bookprice_array 			= $_POST['bookprice'];
+			$bookdiscount_array 		= $_POST['bookdiscount'];
+			$actualprice_array	 		= $_POST['actualprice'];
 			// $alerttypeid 		= $_POST['alerttypeid'];
+
+			for ($i=0; $i < count($bookid_array); $i++) { 
+				
+				$bookid 		= mysql_real_escape_string($bookid_array[$i]);
+				$quantity	 	= mysql_real_escape_string($quantity_array[$i]);
+				$bookprice		= mysql_real_escape_string($bookprice_array[$i]);
+				$bookdiscount 	= mysql_real_escape_string($bookdiscount_array[$i]);
+				$actualprice 	= mysql_real_escape_string($actualprice_array[$i]);
+			}
+
+
+
 
 			$this->ReturnView($viewmodel->placeOrder($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid, $bookid, $quantity, $bookprice, $bookdiscount, $actualprice), true);
 		}

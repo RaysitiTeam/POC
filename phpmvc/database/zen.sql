@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2017 at 01:03 PM
+-- Generation Time: Mar 25, 2017 at 11:59 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -675,7 +675,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `placeOrder` (IN `ordernumber` VARCH
 	
     START TRANSACTION;
     
-		INSERT INTO `order` (ordernumber, customerid, orderstatusid, paymentmode, ordertotalprice, totaldiscount, paymentfulfilled, houseno, addressline1, addressline2, city, state, country, zipcode, mobileno, createdby, subscriberid) VALUES (ordernumber, customerid, orderstatusid, paymentmode, ordertotalprice, totaldiscount, paymentfulfilled, houseno, addressline1, addressline2, city, state, country, zipcode, mobileno, createdby, subscriberid);
+		INSERT INTO `orders` (ordernumber, customerid, orderstatusid, paymentmode, ordertotalprice, totaldiscount, paymentfulfilled, houseno, addressline1, addressline2, city, state, country, zipcode, mobileno, createdby, subscriberid) VALUES (ordernumber, customerid, orderstatusid, paymentmode, ordertotalprice, totaldiscount, paymentfulfilled, houseno, addressline1, addressline2, city, state, country, zipcode, mobileno, createdby, subscriberid);
         
         INSERT INTO orderlineitems (orderid, bookid, quantity, bookprice, bookdiscount, actualprice, createdby) VALUES (LAST_INSERT_ID(), bookid, quantity, bookprice, bookdiscount, actualprice, createdby);
         
@@ -942,19 +942,26 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`customerid`, `customername`, `customertypeid`, `registereddate`, `dateofbirth`, `lastlogindate`, `userid`, `password`, `secretquestion`, `secretanswer`, `mobileno`, `emailaddress`, `createddate`, `createdby`, `modifieddate`, `modifiedby`) VALUES
 (3, 'Manjeet Singh Bargoti', 1, '2017-03-01 12:56:26', '0000-00-00', '2017-03-01 02:05:07', 'mbargoti02', 'mbargoti1213', 'best player', 'Dhoni', '9411447236', 'msb.2905@gmail.com', '0000-00-00 00:00:00', 'Manjeet', NULL, 'Manjeet'),
 (4, 'Vishal Bargoti', 3, '2017-03-01 12:43:07', '1996-08-30', '2017-03-02 01:07:05', 'manjeet07', 'mbargoti12', 'best player', 'Dhoni', '9675756933', 'manjeet.raysiti@gmail.com', '0000-00-00 00:00:00', 'Manjeet', NULL, 'vishal'),
-(5, 'Manjeet', 1, '2017-03-01 12:56:26', '2017-02-02', '2017-03-23 02:51:14', 'vishal', 'Vishal12', 'best player', 'Dhoni', '9411447236', 'mbargoti@gmail.com', '0000-00-00 00:00:00', 'Manjeet', NULL, NULL),
+(5, 'Manjeet', 1, '2017-03-01 12:56:26', '2017-02-02', '2017-03-24 12:23:45', 'vishal', 'Vishal12', 'best player', 'Dhoni', '9411447236', 'mbargoti@gmail.com', '0000-00-00 00:00:00', 'Manjeet', NULL, NULL),
 (6, 'Manjeet', 1, '2017-03-01 12:56:26', '2017-02-02', '2017-03-01 02:05:07', 'mbargoti1', 'mbargoti', 'best player', 'Dhoni', '9411447236', 'mbargoti@gmail.com', '0000-00-00 00:00:00', 'Manjeet', NULL, NULL),
 (7, 'Manjeet', 1, '2017-03-01 12:41:19', '2017-02-02', '2017-03-01 01:41:19', 'vishal2', 'vishal@122', 'best player', 'Dhoni', '9411447236', 'mbargoti@gmail.com', '0000-00-00 00:00:00', 'manjeet', NULL, NULL),
 (8, 'Manjeet', 3, '2017-03-01 12:56:26', '2017-02-02', '2017-03-01 02:05:07', 'mbargoti', 'mbargoti', 'best player', 'Dhoni', '9411447236', 'mbargoti@gmail.com', '0000-00-00 00:00:00', 'manjeet', NULL, NULL),
-(9, 'Manjeet', 2, '2017-03-01 12:56:26', '2017-02-02', '2017-03-01 02:05:07', 'mbargoti', 'mbargoti', 'best player', 'Dhoni', '9411447236', 'mbargoti@gmail.com', '0000-00-00 00:00:00', 'manjeet', NULL, NULL),
-(23, 'Manjeet Singh', 2, '2017-03-20 11:53:54', '1993-05-08', '1993-05-08 00:00:00', 'ManjeetBargoti', 'Manjeet@007', 'Fav Player', 'Dhoni', '9411447236', 'msb.2905@gmail.com', '2017-03-20 11:53:54', 'Manjeet', NULL, NULL),
-(24, 'Manjeet Singh Bargoti', 2, '2017-03-20 11:56:38', '1993-05-08', '1993-05-08 00:00:00', 'ManjeetBargoti', 'Manjeet@007', 'Fav Player', 'Dhoni', '9411447236', 'msb.2905@gmail.com', '2017-03-20 11:56:38', 'Manjeet', NULL, NULL),
-(25, 'Manjeet Singh Bargoti', 2, '2017-03-20 11:59:12', '1993-05-08', '1993-05-08 00:00:00', 'ManjeetBargoti', 'Manjeet@007', 'Fav Player', 'Dhoni', '9411447236', 'msb.2905@gmail.com', '2017-03-20 11:59:12', 'Manjeet', NULL, NULL),
-(26, 'Vishal', 3, '2017-03-23 07:38:45', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Plaer', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-23 07:38:45', 'Vishal', NULL, NULL),
-(27, 'Vishal', 3, '2017-03-23 07:44:30', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-23 07:44:30', 'Vishal', NULL, NULL),
-(28, 'Vishal', 3, '2017-03-23 07:46:25', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-23 07:46:25', 'Vishal', NULL, NULL),
-(29, 'Vishal', 3, '2017-03-23 07:46:49', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-23 07:46:49', 'Vishal', NULL, NULL),
-(30, 'Vishal', 3, '2017-03-23 07:47:06', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-23 07:47:06', 'Vishal', NULL, NULL);
+(33, 'Vishal', 3, '2017-03-24 07:14:23', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 07:14:23', 'Vishal', NULL, NULL),
+(34, 'Vishal', 3, '2017-03-24 07:16:21', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 07:16:21', 'Vishal', NULL, NULL),
+(35, 'Vishal', 3, '2017-03-24 07:23:02', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal123', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 07:23:02', 'Vishal', NULL, NULL),
+(36, 'Vishal Bargoti', 2, '2017-03-24 07:51:10', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 07:51:10', 'Vishal', NULL, NULL),
+(37, 'Vishal Bargoti', 2, '2017-03-24 07:53:03', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 07:53:03', 'Vishal', NULL, NULL),
+(38, 'Vishal Bargoti', 2, '2017-03-24 11:48:47', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 11:48:47', 'Vishal', NULL, NULL),
+(39, 'Vishal Bargoti', 2, '2017-03-24 11:49:38', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 11:49:38', 'Vishal', NULL, NULL),
+(40, 'Vishal Bargoti', 2, '2017-03-24 11:51:13', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 11:51:13', 'Vishal', NULL, NULL),
+(41, 'Vishal Bargoti', 2, '2017-03-24 11:58:14', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 11:58:14', 'Vishal', NULL, NULL),
+(42, 'Vishal Bargoti', 2, '2017-03-24 12:09:38', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-24 12:09:38', 'Vishal', NULL, NULL),
+(43, 'Vishal Bargoti', 2, '2017-03-25 09:39:20', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-25 09:39:20', 'Vishal', NULL, NULL),
+(44, 'Vishal Bargoti', 2, '2017-03-25 10:08:27', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-25 10:08:27', 'V', NULL, NULL),
+(45, 'Vishal Bargoti', 2, '2017-03-25 10:10:16', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-25 10:10:16', 'V', NULL, NULL),
+(46, 'Vishal Bargoti', 2, '2017-03-25 10:15:55', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-25 10:15:55', 'Vishal', NULL, NULL),
+(47, 'Vishal Bargoti', 2, '2017-03-25 10:16:37', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-25 10:16:37', 'Vishal', NULL, NULL),
+(48, 'Vishal Bargoti', 2, '2017-03-25 10:29:59', '1996-08-30', '2017-03-21 00:00:00', 'vbargoti', 'Vishal1234', 'Fav. Player', 'Kohli', '9411447236', 'vishal@gmail.com', '2017-03-25 10:29:59', 'Vishal', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -989,14 +996,20 @@ INSERT INTO `customeraddress` (`customeraddressid`, `customerid`, `customeraddre
 (3, 5, 'Home', '21', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', '203407', '2017-02-21 05:27:23', 'Manjeet', NULL, NULL),
 (4, 6, 'Home', '66', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', '203407', '2017-02-21 05:27:42', 'Manjeet', NULL, NULL),
 (5, 7, 'Home', '66', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', 'Utar Pradesh', 'India', '203407', '2017-02-21 05:34:25', 'manjeet', NULL, NULL),
-(15, 23, 'Home', '66', 'Bulandshahr', 'Bulandshahr', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-20 11:53:54', 'Manjeet', NULL, NULL),
-(16, 24, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-20 11:56:38', 'Manjeet', NULL, NULL),
-(17, 25, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-20 11:59:12', 'Manjeet', NULL, NULL),
-(18, 26, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-23 07:38:45', 'Vishal', NULL, NULL),
-(19, 27, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-23 07:44:30', 'Vishal', NULL, NULL),
-(20, 28, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-23 07:46:25', 'Vishal', NULL, NULL),
-(21, 29, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-23 07:46:49', 'Vishal', NULL, NULL),
-(22, 30, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-23 07:47:06', 'Vishal', NULL, NULL);
+(23, 33, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-24 07:14:24', 'Vishal', NULL, NULL),
+(24, 34, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-24 07:16:21', 'Vishal', NULL, NULL),
+(25, 35, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-24 07:23:02', 'Vishal', NULL, NULL),
+(26, 36, 'Home', '66', 'Shekhpur Garhwa', 'Lakhaoti', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '2017-03-24 07:51:10', 'Vishal', NULL, NULL),
+(27, 37, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-24 07:53:03', 'Vishal', NULL, NULL),
+(28, 38, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-24 11:48:47', 'Vishal', NULL, NULL),
+(29, 39, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-24 11:49:38', 'Vishal', NULL, NULL),
+(30, 40, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-24 11:51:13', 'Vishal', NULL, NULL),
+(31, 41, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-24 11:58:14', 'Vishal', NULL, NULL),
+(32, 42, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-24 12:09:38', 'Vishal', NULL, NULL),
+(33, 43, 'Home', '3', 'K', 'K', 'B', 'K', 'I', '5', '2017-03-25 09:39:20', 'Vishal', NULL, NULL),
+(34, 44, 'Home', '3', 'K', 'K', 'B', 'K', 'I', '5', '2017-03-25 10:08:27', 'V', NULL, NULL),
+(35, 45, 'Home', '3', 'K', 'K', 'B', 'K', 'I', '5', '2017-03-25 10:10:16', 'V', NULL, NULL),
+(36, 48, 'Home', '33', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560060', '2017-03-25 10:29:59', 'Vishal', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1029,48 +1042,6 @@ INSERT INTO `customertype` (`customertypeid`, `customertypename`, `isactive`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
---
-
-CREATE TABLE `order` (
-  `orderid` int(11) NOT NULL,
-  `ordernumber` varchar(200) NOT NULL,
-  `orderdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `customerid` int(11) NOT NULL,
-  `orderstatusid` int(11) NOT NULL,
-  `paymentmode` int(11) NOT NULL,
-  `ordertotalprice` decimal(10,0) NOT NULL,
-  `totaldiscount` decimal(10,0) NOT NULL,
-  `paymentfulfilled` tinyint(1) NOT NULL,
-  `houseno` varchar(6) DEFAULT NULL,
-  `addressline1` varchar(200) NOT NULL,
-  `addressline2` varchar(200) DEFAULT NULL,
-  `city` varchar(200) NOT NULL,
-  `state` varchar(200) NOT NULL,
-  `country` varchar(200) NOT NULL,
-  `zipcode` varchar(6) NOT NULL,
-  `mobileno` varchar(13) NOT NULL,
-  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `createdby` varchar(100) NOT NULL,
-  `moifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modifiedby` varchar(100) DEFAULT NULL,
-  `subscriberid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`orderid`, `ordernumber`, `orderdate`, `customerid`, `orderstatusid`, `paymentmode`, `ordertotalprice`, `totaldiscount`, `paymentfulfilled`, `houseno`, `addressline1`, `addressline2`, `city`, `state`, `country`, `zipcode`, `mobileno`, `createddate`, `createdby`, `moifieddate`, `modifiedby`, `subscriberid`) VALUES
-(5, '59', '2017-02-23 07:43:02', 3, 2, 1, '234', '30', 1, '66', 'Shekhpur Garhwa', 'Bulandshahr', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '9411447236', '2017-02-23 07:43:02', 'manjeet', '2017-02-23 07:43:02', 'admin', 2),
-(6, '59', '2017-02-23 07:44:57', 3, 3, 1, '234', '30', 1, '66', 'Shekhpur Garhwa', 'Bulandshahr', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '9411447236', '2017-02-23 07:44:57', 'manjeet', '2017-02-23 07:44:57', NULL, 2),
-(7, '1244', '2017-02-23 07:46:05', 4, 2, 1, '340', '20', 1, '55', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560059', '9411447236', '2017-02-23 07:46:05', 'manjeet', '2017-02-23 07:46:05', NULL, 2),
-(8, '1244', '2017-02-23 07:48:43', 4, 2, 1, '340', '20', 1, '55', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560059', '9411447236', '2017-02-23 07:48:43', 'manjeet', '2017-02-23 07:48:43', NULL, 1),
-(9, '1244', '2017-02-23 07:59:43', 4, 2, 1, '340', '20', 1, '55', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560059', '9411447236', '2017-02-23 07:59:43', 'manjeet', '2017-02-23 07:59:43', NULL, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `orderlineitems`
 --
 
@@ -1097,7 +1068,65 @@ INSERT INTO `orderlineitems` (`orderlineitemid`, `orderid`, `bookid`, `quantity`
 (6, 6, 7, 1, '248', '30', '218', '2017-02-23 07:44:57', 'manjeet', '2017-02-23 07:44:57', NULL),
 (7, 7, 10, 233, '340', '20', '360', '2017-02-23 07:46:05', 'manjeet', '2017-02-23 07:46:05', NULL),
 (8, 8, 10, 233, '340', '20', '360', '2017-02-23 07:48:43', 'manjeet', '2017-02-23 07:48:43', NULL),
-(9, 9, 10, 233, '340', '20', '360', '2017-02-23 07:59:43', 'manjeet', '2017-02-23 07:59:43', NULL);
+(9, 9, 10, 233, '340', '20', '360', '2017-02-23 07:59:43', 'manjeet', '2017-02-23 07:59:43', NULL),
+(11, 12, 7, 1, '340', '30', '310', '2017-03-24 10:55:34', 'Manjeet', '2017-03-24 10:55:34', NULL),
+(14, 15, 7, 1, '340', '30', '310', '2017-03-25 07:15:53', 'Manjeet', '2017-03-25 07:15:53', NULL),
+(15, 16, 7, 1, '3', '3', '3', '2017-03-25 07:34:36', 'Manjeet', '2017-03-25 07:34:36', NULL),
+(16, 17, 7, 1, '340', '30', '310', '2017-03-25 09:47:11', 'Manjeet', '2017-03-25 09:47:11', NULL),
+(17, 20, 7, 1, '3', '3', '3', '2017-03-25 10:58:41', 'Manjeet', '2017-03-25 10:58:41', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `orderid` int(11) NOT NULL,
+  `ordernumber` varchar(200) NOT NULL,
+  `orderdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `customerid` int(11) NOT NULL,
+  `orderstatusid` int(11) NOT NULL,
+  `paymentmode` int(11) NOT NULL,
+  `ordertotalprice` decimal(10,0) NOT NULL,
+  `totaldiscount` decimal(10,0) NOT NULL,
+  `paymentfulfilled` tinyint(1) NOT NULL,
+  `houseno` varchar(6) DEFAULT NULL,
+  `addressline1` varchar(200) NOT NULL,
+  `addressline2` varchar(200) DEFAULT NULL,
+  `city` varchar(200) NOT NULL,
+  `state` varchar(200) NOT NULL,
+  `country` varchar(200) NOT NULL,
+  `zipcode` varchar(6) NOT NULL,
+  `mobileno` varchar(13) NOT NULL,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdby` varchar(100) NOT NULL,
+  `moifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modifiedby` varchar(100) DEFAULT NULL,
+  `subscriberid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orderid`, `ordernumber`, `orderdate`, `customerid`, `orderstatusid`, `paymentmode`, `ordertotalprice`, `totaldiscount`, `paymentfulfilled`, `houseno`, `addressline1`, `addressline2`, `city`, `state`, `country`, `zipcode`, `mobileno`, `createddate`, `createdby`, `moifieddate`, `modifiedby`, `subscriberid`) VALUES
+(5, '59', '2017-02-23 07:43:02', 3, 2, 1, '234', '30', 1, '66', 'Shekhpur Garhwa', 'Bulandshahr', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '9411447236', '2017-02-23 07:43:02', 'manjeet', '2017-02-23 07:43:02', 'admin', 2),
+(6, '59', '2017-02-23 07:44:57', 3, 3, 1, '234', '30', 1, '66', 'Shekhpur Garhwa', 'Bulandshahr', 'Bulandshahr', 'Uttar Pradesh', 'India', '203407', '9411447236', '2017-02-23 07:44:57', 'manjeet', '2017-02-23 07:44:57', NULL, 2),
+(7, '1244', '2017-02-23 07:46:05', 4, 2, 1, '340', '20', 1, '55', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560059', '9411447236', '2017-02-23 07:46:05', 'manjeet', '2017-02-23 07:46:05', NULL, 2),
+(8, '1244', '2017-02-23 07:48:43', 4, 2, 1, '340', '20', 1, '55', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560059', '9411447236', '2017-02-23 07:48:43', 'manjeet', '2017-02-23 07:48:43', NULL, 1),
+(9, '1244', '2017-02-23 07:59:43', 4, 2, 1, '340', '20', 1, '55', 'KST', 'Kengeri', 'Bangalore', 'Karnataka', 'India', '560059', '9411447236', '2017-02-23 07:59:43', 'manjeet', '2017-02-23 07:59:43', NULL, 1),
+(10, '214', '2017-03-24 10:16:20', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-24 10:16:20', 'Manjeet', '2017-03-24 10:16:20', NULL, 2),
+(11, '214', '2017-03-24 10:53:35', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-24 10:53:35', 'Manjeet', '2017-03-24 10:53:35', NULL, 2),
+(12, '214', '2017-03-24 10:55:34', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-24 10:55:34', 'Manjeet', '2017-03-24 10:55:34', NULL, 2),
+(13, '214', '2017-03-25 06:32:40', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 06:32:40', 'Manjeet', '2017-03-25 06:32:40', NULL, 2),
+(14, '214', '2017-03-25 06:34:27', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 06:34:27', 'Manjeet', '2017-03-25 06:34:27', NULL, 2),
+(15, '214', '2017-03-25 07:15:53', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 07:15:53', 'Manjeet', '2017-03-25 07:15:53', NULL, 2),
+(16, '214', '2017-03-25 07:34:36', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 07:34:36', 'Manjeet', '2017-03-25 07:34:36', NULL, 2),
+(17, '214', '2017-03-25 09:47:11', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 09:47:11', 'Manjeet', '2017-03-25 09:47:11', NULL, 2),
+(18, '214', '2017-03-25 09:54:27', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 09:54:27', 'Manjeet', '2017-03-25 09:54:27', NULL, 2),
+(19, '214', '2017-03-25 10:57:41', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 10:57:41', 'Manjeet', '2017-03-25 10:57:41', NULL, 2),
+(20, '214', '2017-03-25 10:58:41', 4, 2, 1, '340', '30', 1, '66', 'KST', 'Kengeri', 'Bangalore', 'Uttar Pradesh', 'India', '560060', '9411447236', '2017-03-25 10:58:41', 'Manjeet', '2017-03-25 10:58:41', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -1257,21 +1286,21 @@ ALTER TABLE `customertype`
   ADD PRIMARY KEY (`customertypeid`);
 
 --
--- Indexes for table `order`
---
-ALTER TABLE `order`
-  ADD PRIMARY KEY (`orderid`),
-  ADD KEY `fk_ordercustomerid` (`customerid`),
-  ADD KEY `fk_paymentmode` (`paymentmode`),
-  ADD KEY `fk_ordersubscriberid` (`subscriberid`);
-
---
 -- Indexes for table `orderlineitems`
 --
 ALTER TABLE `orderlineitems`
   ADD PRIMARY KEY (`orderlineitemid`),
   ADD KEY `fk_orderlineitemsbook` (`bookid`),
   ADD KEY `fk_orderlineorder` (`orderid`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orderid`),
+  ADD KEY `fk_ordercustomerid` (`customerid`),
+  ADD KEY `fk_paymentmode` (`paymentmode`),
+  ADD KEY `fk_ordersubscriberid` (`subscriberid`);
 
 --
 -- Indexes for table `orderstatus`
@@ -1336,27 +1365,27 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `customeraddress`
 --
 ALTER TABLE `customeraddress`
-  MODIFY `customeraddressid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `customeraddressid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `customertype`
 --
 ALTER TABLE `customertype`
   MODIFY `customertypeid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `order`
---
-ALTER TABLE `order`
-  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
 -- AUTO_INCREMENT for table `orderlineitems`
 --
 ALTER TABLE `orderlineitems`
-  MODIFY `orderlineitemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `orderlineitemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `orderstatus`
 --
@@ -1414,25 +1443,25 @@ ALTER TABLE `customeraddress`
   ADD CONSTRAINT `fk_customerid` FOREIGN KEY (`customerid`) REFERENCES `customer` (`customerid`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `order`
+-- Constraints for table `orderlineitems`
 --
-ALTER TABLE `order`
+ALTER TABLE `orderlineitems`
+  ADD CONSTRAINT `fk_orderlineitemsbook` FOREIGN KEY (`bookid`) REFERENCES `book` (`bookid`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_orderlineorder` FOREIGN KEY (`orderid`) REFERENCES `orders` (`orderid`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
   ADD CONSTRAINT `fk_ordercustomerid` FOREIGN KEY (`customerid`) REFERENCES `customer` (`customerid`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_ordersubscriberid` FOREIGN KEY (`subscriberid`) REFERENCES `booksubscriber` (`subscriberid`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_paymentmode` FOREIGN KEY (`paymentmode`) REFERENCES `paymentmode` (`paymentmodeid`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `orderlineitems`
---
-ALTER TABLE `orderlineitems`
-  ADD CONSTRAINT `fk_orderlineitemsbook` FOREIGN KEY (`bookid`) REFERENCES `book` (`bookid`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_orderlineorder` FOREIGN KEY (`orderid`) REFERENCES `order` (`orderid`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
 -- Constraints for table `ordertracking`
 --
 ALTER TABLE `ordertracking`
-  ADD CONSTRAINT `fk_trackorderid` FOREIGN KEY (`orderid`) REFERENCES `order` (`orderid`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_trackorderid` FOREIGN KEY (`orderid`) REFERENCES `orders` (`orderid`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_trackorderstatusid` FOREIGN KEY (`orderstatusid`) REFERENCES `orderstatus` (`orderstatusid`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

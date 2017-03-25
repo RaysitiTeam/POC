@@ -7,10 +7,16 @@
 		public function placeOrder($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid, $bookid, $quantity, $bookprice, $bookdiscount, $actualprice)
 		{
 
-			$sql ="CALL `zen`.`placeOrder`(:ordernumber, :customerid, :orderstatusid, :paymentmode, :ordertotalprice, :totaldiscount, :paymentfulfilled, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :mobileno, :createdby, :subscriberid, :bookid, :quantity, :bookprice, :bookdiscount, :actualprice);";
+			$db = Db::getInstance();
+
+			$sql = "INSERT INTO orders (ordernumber, customerid, orderstatusid, paymentmode, ordertotalprice, totaldiscount, paymentfulfilled, houseno, addressline1, addressline2, city, state, country, zipcode, mobileno, createdby, subscriberid) VALUES(:ordernumber, :customerid, :orderstatusid, :paymentmode, :ordertotalprice, :totaldiscount, :paymentfulfilled, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :mobileno, :createdby,:subscriberid)";
+
+			$sql2 = "INSERT INTO orderlineitems (orderid, bookid, quantity, bookprice, bookdiscount, actualprice, createdby) VALUES (:orderid, :bookid, :quantity, :bookprice, :bookdiscount, :actualprice, :createdby);";
 
 			try
 			{
+				$db->beginTransaction();
+
 				$this->query($sql);
 
 				$this->bind(':ordernumber', 		$ordernumber);
@@ -30,13 +36,32 @@
 				$this->bind(':mobileno', 			$mobileno);
 				$this->bind(':createdby', 			$createdby);
 				$this->bind(':subscriberid', 		$subscriberid);
+
+				$this->execute();
+
+				$orderid = $this->lastInsertId();
+
+				// $values = array();
+				// foreach($_POST as $key => $value){
+				// 	$qvalue = mysql_real_escape_string($value);
+				// 	$values = "($orderid, $bookid, $quantity, $bookprice, $bookdiscount, $actualprice, $createdby, $qvalue)";
+				// }
+
+				// $query_values = implode(',', $values);
+
+				// $this->query("INSERT INTO orderlineitems (orderid, bookid, quantity, bookprice, bookdiscount, actualprice, createdby) VALUES $query_values;");
+
+				$this->query($sql2);
+
+				$this->bind(':orderid', 			$orderid);
 				$this->bind(':bookid', 				$bookid);
 				$this->bind(':quantity', 			$quantity);
 				$this->bind(':bookprice', 			$bookprice);
 				$this->bind(':bookdiscount', 		$bookdiscount);
 				$this->bind(':actualprice', 		$actualprice);
+				$this->bind(':createdby', 			$createdby);
 
-				$this->execute();
+				$this->execute(); 
 
 				echo '{"notice": {"text": "Order Placed!"}';
 
@@ -67,9 +92,13 @@
 
 				// 	}
 				// }
+
+				$db->commit();
+
 			}
 			catch(Exception $e)
 			{
+				$db->rollback();
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 		}

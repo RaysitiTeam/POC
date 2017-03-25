@@ -12,16 +12,20 @@
 		// Customer Registration
 		public function register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $customeraddresstype, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $createdby)
 		{
-			// Get Database Instance
-			//$db = model::getInstance();
+			
+			$db = Db::getInstance();
 
-			$sql = "CALL `zen`.`registerCustomer`(:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :createdby)";
+			//$sql = "CALL `zen`.`registerCustomer`(:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :createdby)";
+
+			$sql = "INSERT INTO customer (customername, customertypeid, dateofbirth, lastlogindate, userid, password, secretquestion, secretanswer, mobileno, emailaddress, createdby) VALUES (:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :createdby)";
+
+			$sql2 = "INSERT INTO customeraddress (customerid, customeraddresstype, houseno, addressline1, addressline2, city, state, country, zipcode, createdby) VALUES (:customerid, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :createdby)";
 
 			
 			try
 			{
 
-				//$db->beginTransaction();
+				$db->beginTransaction();
 
 				$this->query($sql);
 
@@ -36,6 +40,27 @@
 				$this->bind(':secretanswer', 		$secretanswer);
 				$this->bind(':mobileno', 			$mobileno);
 				$this->bind(':emailaddress', 		$emailaddress);
+				$this->bind(':createdby', 			$createdby);
+
+				$this->execute();
+
+				$customerid = $this->lastInsertId();
+
+				// for ($i=0; $i <= $city; $i++) { 
+				
+				// 	$houseno 		= $_POST['houseno'][$i];
+				// 	$addressline1 	= $_POST['addressline1'][$i];
+				// 	$addressline2 	= $_POST['addressline2'][$i];
+				// 	$city 			= $_POST['city'][$i];
+				// 	$state 			= $_POST['state'][$i];
+				// 	$country 		= $_POST['country'][$i];
+				// 	$zipcode 		= $_POST['zipcode'][$i];
+				// 	$createdby 		= $_POST['createdby'][$i];
+				// }
+
+				$this->query($sql2);
+
+				$this->bind(':customerid',			$customerid);
 				$this->bind(':customeraddresstype',	$customeraddresstype);
 				$this->bind(':houseno', 			$houseno);
 				$this->bind(':addressline1', 		$addressline1);
@@ -46,13 +71,32 @@
 				$this->bind(':zipcode', 			$zipcode);
 				$this->bind(':createdby', 			$createdby);
 
-				$register = $this->execute();
+				$this->execute();
 
 				//Verify
-				if($register)
+				if($this->lastInsertId())
 				{
 					echo json_encode('true');
 					echo "Successfully Registered!";
+
+					$this->query("SELECT customeraddresstype, houseno, addressline1, addressline2, city, state, country, zipcode FROM customeraddress WHERE customerid = :customerid");
+
+					$this->bind(':customerid', 	$customerid);
+
+					$address = $this->resultSet();
+
+					header('Content-type: application/json');
+					echo json_encode($address);
+
+					// $all = array();
+				 //    $customer = Db::getModel('customer/session')->getCustomer();
+				 //    foreach($customer->getAddressesCollection() as $address)
+				 //    {
+				 //            $all[] = $address;
+				 //            //$all[] = $address->getData();
+				 //    }
+				 //    var_dump($all);
+
 				}
 				else
 				{
@@ -65,7 +109,7 @@
 			}
 			catch(Exception $e)
 			{
-				//$db->rollBack();
+				$db->rollback();
 
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
@@ -76,6 +120,8 @@
 		public function login($userid, $password)
 		{
 
+			$db = Db::getInstance();
+
 			date_default_timezone_set("Asia/Kolkata");
 			$currentDate = date('Y-m-d g:i:sA');
 
@@ -85,6 +131,8 @@
 
 			try
 			{
+
+				$db->beginTransaction();
 
 				// Compare Login
 				$this->query($sqllogin);
@@ -111,9 +159,13 @@
 				} else {
 					echo json_encode("false");
 				}
+
+				$db->commit();
+
 			}
 			catch(Exception $e)
 			{
+				$db->rollback();
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 		}
@@ -124,13 +176,13 @@
 		public function getAllCustomer()
 		{
 			// Get Database Instance
-			//$db = model::getInstance();
+			$db = model::getInstance();
 
 			try{
 
 				//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-				//$db->beginTransaction();
+				$db->beginTransaction();
 
 				$this->query("CALL `zen`.`getAllCustomers`()");
 				$customer = $this->resultSet();
@@ -138,12 +190,12 @@
 				header('Content-type: application/json');
 				echo json_encode($customer);
 
-				//$db->commit();
+				$this->commit();
 
 			}
 			catch(Exception $e) 
 			{
-				//$db->rollBack();
+				$this->rollBack();
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 
@@ -163,10 +215,7 @@
 			try
 			{
 
-				// $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-				//$model = model::getInstance();
-
-				//$model->beginTransaction();
+				$db->beginTransaction();
 
 				$this->query($sqloldpass);
 

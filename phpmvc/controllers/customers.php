@@ -36,14 +36,26 @@
 			$mobileno 				= $_POST['mobileno'];
 			$emailaddress 			= $_POST['emailaddress'];
 			$customeraddresstype 	= $_POST['customeraddresstype'];
-			$houseno				= $_POST['houseno'];
-			$addressline1			= $_POST['addressline1'];
-			$addressline2			= $_POST['addressline2'];
-			$city 					= $_POST['city'];
-			$state 					= $_POST['state'];
-			$country 				= $_POST['country'];
-			$zipcode 				= $_POST['zipcode'];
-			$createdby 				= $_POST['createdby'];
+			$houseno_array				= $_POST['houseno'];
+			$addressline1_array			= $_POST['addressline1'];
+			$addressline2_array			= $_POST['addressline2'];
+			$city_array 				= $_POST['city'];
+			$state_array 				= $_POST['state'];
+			$country_array 				= $_POST['country'];
+			$zipcode_array 				= $_POST['zipcode'];
+			//$createdby 				= $_POST['createdby'];
+
+			for ($i=0; $i <= $_POST['city']; $i++) { 
+				
+				$houseno 		= $_POST['houseno'][$i];
+				$addressline1 	= $_POST['addressline1'][$i];
+				$addressline2 	= $_POST['addressline2'][$i];
+				$city 			= $_POST['city'][$i];
+				$state 			= $_POST['state'][$i];
+				$country 		= $_POST['country'][$i];
+				$zipcode 		= $_POST['zipcode'][$i];
+				$createdby 		= $_POST['createdby'][$i];
+			}
 
 			$this->ReturnView($viewmodel->register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $customeraddresstype, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $createdby), true);
 		}

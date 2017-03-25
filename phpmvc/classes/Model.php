@@ -1,26 +1,9 @@
 <?php
-	class Model
+	class Model extends Db
 	{
-		public static $_instance;		// The single instance
+		public static $instance;		// The single instance
 		protected $dbh;
 		protected $stmt;
-
-		// Get an instance of the Database 
-	    // @return  instance
-	    public static function getInstance()
-	    {
-	    	if(!self::$_instance){
-	    		// If no instance then make one
-	    		self::$_instance = new self();
-	    	}
-
-	    	return self::$_instance;
-	    }
-
-		public function __construct()
-		{
-			$this->dbh = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-		}
 
 		public function query($query)
 		{
