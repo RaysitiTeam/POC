@@ -17,6 +17,8 @@
 
 		public function __construct($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby)
 		{
+			parent::__construct();
+
 			$this->customername 	= $customername;
 			$this->customertypeid 	= $customertypeid;
 			$this->dateofbirth		= $dateofbirth;
@@ -29,19 +31,12 @@
 			$this->emailaddress		= $emailaddress;
 			$this->createdby		= $createdby;
 
-			echo $customername;
-
-			$viewmodel->register();
+			$this->register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby);
 		}
-
-		// public function Index()
-		// {
-		// 	echo "Manjeet";
-		// }
 
 
 		// Customer Registration
-		public function register()
+		public function register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby)
 		{
 			
 			$db = Db::getInstance();

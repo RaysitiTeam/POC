@@ -37,9 +37,6 @@
 
 			$viewmodel = new CustomerRegister($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby);
 
-			//echo $register->customername;
-
-			//$this->ReturnView($viewmodel->register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby), true);
 		}
 
 		protected function login()
