@@ -30,6 +30,8 @@
 			$this->createdby		= $createdby;
 
 			echo $customername;
+
+			$viewmodel->register();
 		}
 
 		// public function Index()
