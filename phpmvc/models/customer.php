@@ -1,31 +1,53 @@
 <?php
 
-	class CustomerModel extends Model 
+	class CustomerRegister extends Model 
 	{
 
-		public function Index()
+		public $customername;
+		public $customertypeid;
+		public $dateofbirth;
+		public $lastlogindate;
+		public $userid;
+		public $password;
+		public $secretquestion;
+		public $secretanswer;
+		public $mobileno;
+		public $emailaddress;
+		public $createdby;
+
+		public function __construct($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby)
 		{
-			echo "Manjeet";
+			$this->customername 	= $customername;
+			$this->customertypeid 	= $customertypeid;
+			$this->dateofbirth		= $dateofbirth;
+			$this->lastlogindate	= $lastlogindate;
+			$this->userid			= $userid;
+			$this->password 		= $password;
+			$this->secretquestion 	= $secretquestion;
+			$this->secretanswer 	= $secretanswer;
+			$this->mobileno 		= $mobileno;
+			$this->emailaddress		= $emailaddress;
+			$this->createdby		= $createdby;
+
+			echo $customername;
 		}
+
+		// public function Index()
+		// {
+		// 	echo "Manjeet";
+		// }
 
 
 		// Customer Registration
-		public function register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $customeraddresstype, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $createdby)
+		public function register()
 		{
 			
 			$db = Db::getInstance();
 
-			//$sql = "CALL `zen`.`registerCustomer`(:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :createdby)";
-
 			$sql = "INSERT INTO customer (customername, customertypeid, dateofbirth, lastlogindate, userid, password, secretquestion, secretanswer, mobileno, emailaddress, createdby) VALUES (:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :createdby)";
-
-			$sql2 = "INSERT INTO customeraddress (customerid, customeraddresstype, houseno, addressline1, addressline2, city, state, country, zipcode, createdby) VALUES (:customerid, :customeraddresstype, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :createdby)";
-
 			
 			try
 			{
-
-				$db->beginTransaction();
 
 				$this->query($sql);
 
@@ -44,158 +66,104 @@
 
 				$this->execute();
 
-				$customerid = $this->lastInsertId();
-
-				// for ($i=0; $i <= $city; $i++) { 
-				
-				// 	$houseno 		= $_POST['houseno'][$i];
-				// 	$addressline1 	= $_POST['addressline1'][$i];
-				// 	$addressline2 	= $_POST['addressline2'][$i];
-				// 	$city 			= $_POST['city'][$i];
-				// 	$state 			= $_POST['state'][$i];
-				// 	$country 		= $_POST['country'][$i];
-				// 	$zipcode 		= $_POST['zipcode'][$i];
-				// 	$createdby 		= $_POST['createdby'][$i];
-				// }
-
-				$this->query($sql2);
-
-				$this->bind(':customerid',			$customerid);
-				$this->bind(':customeraddresstype',	$customeraddresstype);
-				$this->bind(':houseno', 			$houseno);
-				$this->bind(':addressline1', 		$addressline1);
-				$this->bind(':addressline2', 		$addressline2);
-				$this->bind(':city', 				$city);
-				$this->bind(':state', 				$state);
-				$this->bind(':country', 			$country);
-				$this->bind(':zipcode', 			$zipcode);
-				$this->bind(':createdby', 			$createdby);
-
-				$this->execute();
-
 				//Verify
 				if($this->lastInsertId())
 				{
 					echo json_encode('true');
-					echo "Successfully Registered!";
-
-					$this->query("SELECT customeraddresstype, houseno, addressline1, addressline2, city, state, country, zipcode FROM customeraddress WHERE customerid = :customerid");
-
-					$this->bind(':customerid', 	$customerid);
-
-					$address = $this->resultSet();
-
-					header('Content-type: application/json');
-					echo json_encode($address);
-
-					// $all = array();
-				 //    $customer = Db::getModel('customer/session')->getCustomer();
-				 //    foreach($customer->getAddressesCollection() as $address)
-				 //    {
-				 //            $all[] = $address;
-				 //            //$all[] = $address->getData();
-				 //    }
-				 //    var_dump($all);
-
+					// echo "Successfully Registered!";
 				}
 				else
 				{
 					echo json_encode('false');
-					echo "Failed";
+					// echo "Failed";
 				}
-
-				//$db->commit();
 
 			}
 			catch(Exception $e)
 			{
-				$db->rollback();
 
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 		}
+	}
 
 
 		// Customer Login
-		public function login($userid, $password)
-		{
+		// public function login($userid, $password)
+		// {
 
-			$db = Db::getInstance();
+		// 	$db = Db::getInstance();
 
-			date_default_timezone_set("Asia/Kolkata");
-			$currentDate = date('Y-m-d g:i:sA');
+		// 	date_default_timezone_set("Asia/Kolkata");
+		// 	$currentDate = date('Y-m-d g:i:sA');
 
-			$sqllogin = 'SELECT * FROM customer WHERE userid = :userid AND password = :password';
+		// 	$sqllogin = 'SELECT * FROM customer WHERE userid = :userid AND password = :password';
 
-			$sqllast = 'UPDATE customer SET lastlogindate = :lastlogindate WHERE userid = :userid AND password = :password';
+		// 	$sqllast = 'UPDATE customer SET lastlogindate = :lastlogindate WHERE userid = :userid AND password = :password';
 
-			try
-			{
+		// 	try
+		// 	{
 
-				$db->beginTransaction();
+		// 		$db->beginTransaction();
 
-				// Compare Login
-				$this->query($sqllogin);
+		// 		// Compare Login
+		// 		$this->query($sqllogin);
 
-				$this->bind(':userid', 		$userid, PDO::PARAM_STR);
-				$this->bind(':password', 	$password, PDO::PARAM_STR);
+		// 		$this->bind(':userid', 		$userid, PDO::PARAM_STR);
+		// 		$this->bind(':password', 	$password, PDO::PARAM_STR);
 
-				$row = $this->single();
+		// 		$row = $this->single();
 			
-				if($row){
+		// 		if($row){
 
-					echo json_encode("true");
+		// 			echo json_encode("true");
 
-					$this->query($sqllast);
+		// 			$this->query($sqllast);
 
-					$this->bind(':lastlogindate', 	$currentDate, PDO::PARAM_STR);
-					$this->bind(':userid', 			$userid, PDO::PARAM_STR);
-					$this->bind(':password', 		$password, PDO::PARAM_STR);
+		// 			$this->bind(':lastlogindate', 	$currentDate, PDO::PARAM_STR);
+		// 			$this->bind(':userid', 			$userid, PDO::PARAM_STR);
+		// 			$this->bind(':password', 		$password, PDO::PARAM_STR);
 
-					$this->execute();
+		// 			$this->execute();
 
-					echo "\n Login Success!";
+		// 			echo "\n Login Success!";
 
-				} else {
-					echo json_encode("false");
-				}
+		// 		} else {
+		// 			echo json_encode("false");
+		// 		}
 
-				$db->commit();
+		// 		$db->commit();
 
-			}
-			catch(Exception $e)
-			{
-				$db->rollback();
-				echo 'Caught exception: ',  $e->getMessage(), "\n";
-			}
-		}
+		// 	}
+		// 	catch(Exception $e)
+		// 	{
+		// 		$db->rollback();
+		// 		echo 'Caught exception: ',  $e->getMessage(), "\n";
+		// 	}
+		// }
 
-
+	class GetCustomer extends Model
+	{
 
 		// Get All Customers Details
 		public function getAllCustomer()
 		{
 			// Get Database Instance
-			$db = model::getInstance();
+			//$db = model::getInstance();
 
 			try{
 
-				//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
-				$db->beginTransaction();
-
 				$this->query("CALL `zen`.`getAllCustomers`()");
-				$customer = $this->resultSet();
+				// $customer = $this->resultSet();
 
-				header('Content-type: application/json');
-				echo json_encode($customer);
-
-				$this->commit();
+				// header('Content-type: application/json');
+				// echo json_encode($customer);
+				$rows = $this->resultSet();
+				echo json_encode($rows);
 
 			}
 			catch(Exception $e) 
 			{
-				$this->rollBack();
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 

@@ -14,6 +14,7 @@
 	require('controllers/users.php');
 	require('controllers/customers.php');
 	require('controllers/orders.php');
+	require('controllers/customeraddresses.php');
 
 	// Require Models
 	require('models/home.php');
@@ -21,6 +22,7 @@
 	require('models/user.php');
 	require('models/customer.php');
 	require('models/order.php');
+	require('models/customeraddress.php');
 
 	$bootstrap = new Bootstrap($_GET);
 

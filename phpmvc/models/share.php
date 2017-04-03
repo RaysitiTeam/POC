@@ -14,7 +14,7 @@
 			// Sanitize Post
 			$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-			if($post['submit']) {
+			// if($post['submit']) {
 				$this->query('INSERT INTO shares(title, body, link, user_id) VALUES(:title, :body, :link, :user_id)');
 				$this->bind(':title', 	$post['title']);
 				$this->bind(':body', 	$post['body']);
@@ -28,7 +28,7 @@
 					// Redirect
 					header('Location: '.ROOT_URL.'shares');
 				}
-			}
+			// }
 			return;
 		}
 	}

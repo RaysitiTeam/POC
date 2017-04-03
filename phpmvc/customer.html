@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>HTML JavaScript Call</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<hr>
+
+	<div class="container">
+		<div id="result"></div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Customer Register</h3>
+		  </div>
+		  <div class="panel-body">
+		    <form action="#">
+		    	<div class="form-group">
+		    		<label>Customer Name</label>
+		    		<input type="text" name="customername" id="customername" class="form-control" />
+		    	</div>
+		    	<div class="form-group">
+		    		<label>Customer Type Id</label>
+		    		<input type="text" name="customertypeid" id="customertypeid" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>DOB</label>
+		    		<input type="text" name="dateofbirth" id="dateofbirth" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Last Login Date</label>
+		    		<input type="text" name="lastlogindate" id="lastlogindate" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Userid</label>
+		    		<input type="text" name="userid" id="userid" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Password</label>
+		    		<input type="text" name="password" id="password" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Secret Question</label>
+		    		<input type="text" name="secretquestion" id="secretquestion" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Secret Answer</label>
+		    		<input type="text" name="secretanswer" id="secretanswer" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Mobile no.</label>
+		    		<input type="text" name="mobileno" id="mobileno" class="form-control" />
+		    	</div>
+		    	
+		    	<div class="form-group">
+		    		<label>Email Address</label>
+		    		<input type="text" name="emailaddress" id="emailaddress" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Created By</label>
+		    		<input type="text" name="createdby" id="createdby" class="form-control" />
+		    	</div>
+		    	<input class="btn btn-primary" name="submit" type="submit" value="Submit" />
+		    </form>
+		  </div>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="container">
+
+		<a class="btn btn-info" onclick="getCustomer()">Shares</a>
+
+		<div id="customer"></div>
+
+	</div>
+
+	<script>
+		$(function(){
+			$('form').on('submit', function(e){
+
+				e.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: "http://localhost/phpmvc/customers/register", 
+					data: $('form').serialize(),
+					dataType: 'json',
+					success: function(res) {
+						if(res=='true')
+						{
+							$("#result").html('Success');
+						}
+						else
+						{
+							$("#result").html('Failed');
+						}
+					},
+					error: function(xhr) {
+						$("#result").html('Failed');
+					}
+				});	
+			});
+		});
+
+		function getCustomer()
+		{
+		    $.ajax({
+		        url : 'http://localhost/phpmvc/customers/getCustomer',
+		        //data:null,
+		        type: 'POST',
+		        
+
+		        success: function(data){
+		            $('#customer').html(data);
+		        }
+		    });
+		}
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

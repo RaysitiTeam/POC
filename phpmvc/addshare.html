@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>HTML JavaScript Call</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<hr>
+	<div class="container">
+
+		<!-- <a class="btn btn-info" onclick="getSummary()">Shares</a>
+
+		<div id="summary">This is Text.</div> -->
+
+		<form method="POST" action="http://localhost/phpmvc/shares/add" class="form-bootstrap" id="details_form" autocomplete="off">
+			<div class="form-group">
+		    	<label>Title</label>
+				<input name="title" type="text" id="title" class="form-control">
+			</div>
+
+			<div class="form-group">
+		    	<label>Body</label>
+				<input id="body" name="body" type="text" class="form-control"> 
+			</div>
+
+			<div class="form-group">
+		    	<label>Link</label>
+		    	<input type="text" name="link" id="link" class="form-control" />
+		   	</div>
+
+		   	<div class="form-group">
+				<input id="save" type="submit" value="Save" class="btn btn-info">
+			</div> 
+		</form>
+
+	</div>
+
+
+	<!-- <script type="text/javascript">
+		function getSummary()
+		{
+		    $.ajax({
+		        url : 'http://localhost/phpmvc/shares',
+		        //data:null,
+		        type: 'GET',
+		        
+
+		        success: function(data){
+		            $('#summary').html(data);
+		        }
+		    });
+		}
+	</script> -->
+
+	<script>
+		$('#save').on('click',function(e) {
+
+			var form = $(this).closest('form') ;
+			e.preventDefault();
+
+			var result = form.serialize();
+
+			var ajax = $.post(
+			    form.data('action'),        {
+			        'data': result
+			    },
+			    function(data) {
+			        alert(data);
+			    }
+			);
+
+			ajax.fail(function(data){
+			    alert('fail (see console for details)');
+			    console.log(data);
+			});
+		})
+	</script>
+
+
+
+
+</body>
+</html>
