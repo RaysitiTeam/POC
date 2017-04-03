@@ -1,6 +1,6 @@
 <?php
 
-	class CustomerRegister extends Model 
+	class CustomerModel extends Model 
 	{
 
 		public $customername;
@@ -31,15 +31,14 @@
 			$this->emailaddress		= $emailaddress;
 			$this->createdby		= $createdby;
 
-			$this->register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby);
 		}
 
 
 		// Customer Registration
-		public function register($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby)
+		public function register()
 		{
 			
-			$db = Db::getInstance();
+			//$db = Db::getInstance();
 
 			$sql = "INSERT INTO customer (customername, customertypeid, dateofbirth, lastlogindate, userid, password, secretquestion, secretanswer, mobileno, emailaddress, createdby) VALUES (:customername, :customertypeid, :dateofbirth, :lastlogindate, :userid, :password, :secretquestion, :secretanswer, :mobileno, :emailaddress, :createdby)";
 			
@@ -49,17 +48,17 @@
 				$this->query($sql);
 
 				// Bind the value
-				$this->bind(':customername', 		$customername);
-				$this->bind(':customertypeid', 		$customertypeid);
-				$this->bind(':dateofbirth', 		$dateofbirth);
-				$this->bind(':lastlogindate', 		$lastlogindate);
-				$this->bind(':userid', 				$userid);
-				$this->bind(':password', 			$password);
-				$this->bind(':secretquestion', 		$secretquestion);
-				$this->bind(':secretanswer', 		$secretanswer);
-				$this->bind(':mobileno', 			$mobileno);
-				$this->bind(':emailaddress', 		$emailaddress);
-				$this->bind(':createdby', 			$createdby);
+				$this->bind(':customername', 		$this->customername);
+				$this->bind(':customertypeid', 		$this->customertypeid);
+				$this->bind(':dateofbirth', 		$this->dateofbirth);
+				$this->bind(':lastlogindate', 		$this->lastlogindate);
+				$this->bind(':userid', 				$this->userid);
+				$this->bind(':password', 			$this->password);
+				$this->bind(':secretquestion', 		$this->secretquestion);
+				$this->bind(':secretanswer', 		$this->secretanswer);
+				$this->bind(':mobileno', 			$this->mobileno);
+				$this->bind(':emailaddress', 		$this->emailaddress);
+				$this->bind(':createdby', 			$this->createdby);
 
 				$this->execute();
 
@@ -82,65 +81,63 @@
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 		}
-	}
 
 
 		// Customer Login
-		// public function login($userid, $password)
-		// {
+		public function login($userid, $password)
+		{
 
-		// 	$db = Db::getInstance();
+			//$db = Db::getInstance();
 
-		// 	date_default_timezone_set("Asia/Kolkata");
-		// 	$currentDate = date('Y-m-d g:i:sA');
+			date_default_timezone_set("Asia/Kolkata");
+			$currentDate = date('Y-m-d g:i:sA');
 
-		// 	$sqllogin = 'SELECT * FROM customer WHERE userid = :userid AND password = :password';
+			$sqllogin = 'SELECT * FROM customer WHERE userid = :userid AND password = :password';
 
-		// 	$sqllast = 'UPDATE customer SET lastlogindate = :lastlogindate WHERE userid = :userid AND password = :password';
+			$sqllast = 'UPDATE customer SET lastlogindate = :lastlogindate WHERE userid = :userid AND password = :password';
 
-		// 	try
-		// 	{
+			try
+			{
 
-		// 		$db->beginTransaction();
+				$db->beginTransaction();
 
-		// 		// Compare Login
-		// 		$this->query($sqllogin);
+				// Compare Login
+				$this->query($sqllogin);
 
-		// 		$this->bind(':userid', 		$userid, PDO::PARAM_STR);
-		// 		$this->bind(':password', 	$password, PDO::PARAM_STR);
+				$this->bind(':userid', 		$userid, PDO::PARAM_STR);
+				$this->bind(':password', 	$password, PDO::PARAM_STR);
 
-		// 		$row = $this->single();
+				$row = $this->single();
 			
-		// 		if($row){
+				if($row){
 
-		// 			echo json_encode("true");
+					echo json_encode("true");
 
-		// 			$this->query($sqllast);
+					$this->query($sqllast);
 
-		// 			$this->bind(':lastlogindate', 	$currentDate, PDO::PARAM_STR);
-		// 			$this->bind(':userid', 			$userid, PDO::PARAM_STR);
-		// 			$this->bind(':password', 		$password, PDO::PARAM_STR);
+					$this->bind(':lastlogindate', 	$currentDate, PDO::PARAM_STR);
+					$this->bind(':userid', 			$userid, PDO::PARAM_STR);
+					$this->bind(':password', 		$password, PDO::PARAM_STR);
 
-		// 			$this->execute();
+					$this->execute();
 
-		// 			echo "\n Login Success!";
+					echo "\n Login Success!";
 
-		// 		} else {
-		// 			echo json_encode("false");
-		// 		}
+				} else {
+					echo json_encode("false");
+				}
 
-		// 		$db->commit();
+				$db->commit();
 
-		// 	}
-		// 	catch(Exception $e)
-		// 	{
-		// 		$db->rollback();
-		// 		echo 'Caught exception: ',  $e->getMessage(), "\n";
-		// 	}
-		// }
+			}
+			catch(Exception $e)
+			{
+				$db->rollback();
+				echo 'Caught exception: ',  $e->getMessage(), "\n";
+			}
+		}
 
-	class GetCustomer extends Model
-	{
+
 
 		// Get All Customers Details
 		public function getAllCustomer()

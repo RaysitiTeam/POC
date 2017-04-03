@@ -1,6 +1,6 @@
 <?php
 
-	class Customers extends Controller
+	class CustomerController extends Controller
 	{
 		protected function Index()
 		{
@@ -11,7 +11,7 @@
 		protected function getCustomer()
 		{
 			
-			$viewmodel = new GetCustomer();
+			$viewmodel = new CustomerModel();
 
 			$this->ReturnView($viewmodel->getAllCustomer(), true);
 		}
@@ -35,7 +35,9 @@
 			$emailaddress 			= $_POST['emailaddress'];
 			$createdby 				= $_POST['createdby'];
 
-			$viewmodel = new CustomerRegister($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby);
+			$viewmodel = new CustomerModel($customername, $customertypeid, $dateofbirth, $lastlogindate, $userid, $password, $secretquestion, $secretanswer, $mobileno, $emailaddress, $createdby);
+
+			$this->ReturnView($viewmodel->register(), true);
 
 		}
 
