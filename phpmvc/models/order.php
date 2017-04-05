@@ -2,44 +2,89 @@
 
 	class OrderModel extends Model
 	{
+		public $ordernumber;
+		public $customerid;
+		public $orderstatusid;
+		public $paymentmode;
+		public $ordertotalprice;
+		public $totaldiscount;
+		public $paymentfulfilled;
+		public $houseno;
+		public $addressline1;
+		public $addressline2;
+		public $city;
+		public $state;
+		public $country;
+		public $zipcode;
+		public $mobileno;
+		public $createdby;
+		public $subscriberid;
+
+		public function __construct($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid)
+		{
+			parent::__construct();
+
+			$this->ordernumber 		= $ordernumber;
+			$this->customerid 		= $customerid;
+			$this->orderstatusid	= $orderstatusid;
+			$this->paymentmode		= $paymentmode;
+			$this->ordertotalprice	= $ordertotalprice;
+			$this->totaldiscount 	= $totaldiscount;
+			$this->paymentfulfilled	= $paymentfulfilled;
+			$this->houseno 			= $houseno;
+			$this->addressline1		= $addressline1;
+			$this->addressline2		= $addressline2;
+			$this->city 			= $city;
+			$this->state 			= $state;
+			$this->country 			= $country;
+			$this->zipcode 			= $zipcode;
+			$this->mobileno 		= $mobileno;
+			$this->createdby		= $createdby;
+			$this->subscriberid		= $subscriberid; 
+		}
 
 		// Place an Order
-		public function placeOrder($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid, $bookid, $quantity, $bookprice, $bookdiscount, $actualprice)
+		public function placeOrder()
 		{
 
-			$db = Db::getInstance();
+			// $db = Db::getInstance();
 
 			$sql = "INSERT INTO orders (ordernumber, customerid, orderstatusid, paymentmode, ordertotalprice, totaldiscount, paymentfulfilled, houseno, addressline1, addressline2, city, state, country, zipcode, mobileno, createdby, subscriberid) VALUES(:ordernumber, :customerid, :orderstatusid, :paymentmode, :ordertotalprice, :totaldiscount, :paymentfulfilled, :houseno, :addressline1, :addressline2, :city, :state, :country, :zipcode, :mobileno, :createdby,:subscriberid)";
 
-			$sql2 = "INSERT INTO orderlineitems (orderid, bookid, quantity, bookprice, bookdiscount, actualprice, createdby) VALUES (:orderid, :bookid, :quantity, :bookprice, :bookdiscount, :actualprice, :createdby);";
+			// $sql2 = "INSERT INTO orderlineitems (orderid, bookid, quantity, bookprice, bookdiscount, actualprice, createdby) VALUES (:orderid, :bookid, :quantity, :bookprice, :bookdiscount, :actualprice, :createdby);";
 
 			try
 			{
-				$db->beginTransaction();
+				// $db->beginTransaction();
 
 				$this->query($sql);
 
-				$this->bind(':ordernumber', 		$ordernumber);
-				$this->bind(':customerid', 			$customerid);
-				$this->bind(':orderstatusid', 		$orderstatusid);
-				$this->bind(':paymentmode', 		$paymentmode);
-				$this->bind(':ordertotalprice', 	$ordertotalprice);
-				$this->bind(':totaldiscount', 	  	$totaldiscount);
-				$this->bind(':paymentfulfilled', 	$paymentfulfilled);
-				$this->bind(':houseno', 			$houseno);
-				$this->bind(':addressline1', 		$addressline1);
-				$this->bind(':addressline2', 		$addressline2);
-				$this->bind(':city', 				$city);
-				$this->bind(':state', 				$state);
-				$this->bind(':country', 			$country);
-				$this->bind(':zipcode', 			$zipcode);
-				$this->bind(':mobileno', 			$mobileno);
-				$this->bind(':createdby', 			$createdby);
-				$this->bind(':subscriberid', 		$subscriberid);
+				$this->bind(':ordernumber', 		$this->ordernumber);
+				$this->bind(':customerid', 			$this->customerid);
+				$this->bind(':orderstatusid', 		$this->orderstatusid);
+				$this->bind(':paymentmode', 		$this->paymentmode);
+				$this->bind(':ordertotalprice', 	$this->ordertotalprice);
+				$this->bind(':totaldiscount', 	  	$this->totaldiscount);
+				$this->bind(':paymentfulfilled', 	$this->paymentfulfilled);
+				$this->bind(':houseno', 			$this->houseno);
+				$this->bind(':addressline1', 		$this->addressline1);
+				$this->bind(':addressline2', 		$this->addressline2);
+				$this->bind(':city', 				$this->city);
+				$this->bind(':state', 				$this->state);
+				$this->bind(':country', 			$this->country);
+				$this->bind(':zipcode', 			$this->zipcode);
+				$this->bind(':mobileno', 			$this->mobileno);
+				$this->bind(':createdby', 			$this->createdby);
+				$this->bind(':subscriberid', 		$this->subscriberid);
 
 				$this->execute();
 
-				$orderid = $this->lastInsertId();
+				if($this->lastInsertId())
+				{
+					echo "true";
+				} else {
+					echo "false";
+				}
 
 				// $values = array();
 				// foreach($_POST as $key => $value){
@@ -51,19 +96,19 @@
 
 				// $this->query("INSERT INTO orderlineitems (orderid, bookid, quantity, bookprice, bookdiscount, actualprice, createdby) VALUES $query_values;");
 
-				$this->query($sql2);
+				// $this->query($sql2);
 
-				$this->bind(':orderid', 			$orderid);
-				$this->bind(':bookid', 				$bookid);
-				$this->bind(':quantity', 			$quantity);
-				$this->bind(':bookprice', 			$bookprice);
-				$this->bind(':bookdiscount', 		$bookdiscount);
-				$this->bind(':actualprice', 		$actualprice);
-				$this->bind(':createdby', 			$createdby);
+				// $this->bind(':orderid', 			$orderid);
+				// $this->bind(':bookid', 				$bookid);
+				// $this->bind(':quantity', 			$quantity);
+				// $this->bind(':bookprice', 			$bookprice);
+				// $this->bind(':bookdiscount', 		$bookdiscount);
+				// $this->bind(':actualprice', 		$actualprice);
+				// $this->bind(':createdby', 			$createdby);
 
-				$this->execute(); 
+				// $this->execute(); 
 
-				echo '{"notice": {"text": "Order Placed!"}';
+				// echo '{"notice": {"text": "Order Placed!"}';
 
 				// if($this->lastInsertId()){
 
@@ -93,12 +138,12 @@
 				// 	}
 				// }
 
-				$db->commit();
+				// $db->commit();
 
 			}
 			catch(Exception $e)
 			{
-				$db->rollback();
+				// $db->rollback();
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 		}

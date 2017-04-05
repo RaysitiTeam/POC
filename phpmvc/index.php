@@ -12,17 +12,17 @@
 	require('controllers/home.php');
 	require('controllers/shares.php');
 	require('controllers/users.php');
-	require('controllers/customers.php');
 	require('controllers/orders.php');
 	require('controllers/customeraddresses.php');
+	require('controllers/customercontroller.php');
 
 	// Require Models
 	require('models/home.php');
 	require('models/share.php');
 	require('models/user.php');
-	require('models/customer.php');
 	require('models/order.php');
 	require('models/customeraddress.php');
+	require('models/customermodel.php');
 
 	$bootstrap = new Bootstrap($_GET);
 

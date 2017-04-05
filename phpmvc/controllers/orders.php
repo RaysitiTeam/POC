@@ -11,12 +11,11 @@
 		protected function getOrders()
 		{
 			$viewmodel = new OrderModel();
-			$this->ReturnView($viewmodel->getOrders(), true);
+			$this->getOrders();
 		}
 
 		protected function placeOrder()
 		{
-			$viewmodel = new OrderModel();
 
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -37,26 +36,16 @@
 			$mobileno 			= $_POST['mobileno'];
 			$createdby 			= $_POST['createdby'];
 			$subscriberid 		= $_POST['subscriberid'];
-			$bookid_array 				= $_POST['bookid'];
-			$quantity_array 			= $_POST['quantity'];
-			$bookprice_array 			= $_POST['bookprice'];
-			$bookdiscount_array 		= $_POST['bookdiscount'];
-			$actualprice_array	 		= $_POST['actualprice'];
-			// $alerttypeid 		= $_POST['alerttypeid'];
+			// $bookid 			= $_POST['bookid'];
+			// $quantity 			= $_POST['quantity'];
+			// $bookprice 			= $_POST['bookprice'];
+			// $bookdiscount 		= $_POST['bookdiscount'];
+			// $actualprice	 	= $_POST['actualprice'];
 
-			for ($i=0; $i < count($bookid_array); $i++) { 
-				
-				$bookid 		= mysql_real_escape_string($bookid_array[$i]);
-				$quantity	 	= mysql_real_escape_string($quantity_array[$i]);
-				$bookprice		= mysql_real_escape_string($bookprice_array[$i]);
-				$bookdiscount 	= mysql_real_escape_string($bookdiscount_array[$i]);
-				$actualprice 	= mysql_real_escape_string($actualprice_array[$i]);
-			}
+			$viewmodel = new OrderModel($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid);
 
 
-
-
-			$this->ReturnView($viewmodel->placeOrder($ordernumber, $customerid, $orderstatusid, $paymentmode, $ordertotalprice, $totaldiscount, $paymentfulfilled, $houseno, $addressline1, $addressline2, $city, $state, $country, $zipcode, $mobileno, $createdby, $subscriberid, $bookid, $quantity, $bookprice, $bookdiscount, $actualprice), true);
+			$this->ReturnView($viewmodel->placeOrder(), true);
 		}
 
 		protected function getOrderDetails()

@@ -8,8 +8,8 @@
 	define("DB_NAME", "zen");
 
 	// Define URL
-	define('ROOT_PATH', '/phpmvc/');
-	define('ROOT_URL', 'http://localhost/phpmvc/');
+	// define('ROOT_PATH', '/phpmvc/');
+	// define('ROOT_URL', 'http://localhost/phpmvc/');
 
 	class Db 
 	{

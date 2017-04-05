@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Order Management</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<hr>
+
+	<div class="container">
+		<div id="result"></div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Place an Order</h3>
+		  </div>
+		  <div class="panel-body">
+		    <form action="#">
+		    	<div class="form-group">
+		    		<label>Order Number</label>
+		    		<input type="text" name="ordernumber" id="ordernumber" class="form-control" />
+		    	</div>
+		    	<div class="form-group">
+		    		<label>Customer Id</label>
+		    		<input type="text" name="customerid" id="customerid" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Order Status Id</label>
+		    		<input type="text" name="orderstatusid" id="orderstatusid" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Payment Mode</label>
+		    		<input type="text" name="paymentmode" id="paymentmode" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Order Total Price</label>
+		    		<input type="text" name="ordertotalprice" id="ordertotalprice" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Total Discount</label>
+		    		<input type="text" name="totaldiscount" id="totaldiscount" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Payment Fulfilled</label>
+		    		<input type="text" name="paymentfulfilled" id="paymentfulfilled" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>House no.</label>
+		    		<input type="text" name="houseno" id="houseno" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Address Line 1</label>
+		    		<input type="text" name="addressline1" id="addressline1" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Address Line 2</label>
+		    		<input type="text" name="addressline2" id="addressline2" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>City</label>
+		    		<input type="text" name="city" id="city" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>State</label>
+		    		<input type="text" name="state" id="state" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Country</label>
+		    		<input type="text" name="country" id="country" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Zipcode</label>
+		    		<input type="text" name="zipcode" id="zipcode" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Mobile no.</label>
+		    		<input type="text" name="mobileno" id="mobileno" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Created By</label>
+		    		<input type="text" name="createdby" id="createdby" class="form-control" />
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label>Subscriber Id</label>
+		    		<input type="text" name="subscriberid" id="subscriberid" class="form-control" />
+		    	</div>
+		    	<input class="btn btn-primary" name="submit" type="submit" value="Submit" />
+		    </form>
+		  </div>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="container">
+
+		<a class="btn btn-info" onclick="getCustomer()">Shares</a>
+
+		<div id="customer"></div>
+
+	</div>
+
+	<script>
+		$(function(){
+			$('form').on('submit', function(e){
+
+				e.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: "http://localhost/phpmvc/orders/placeorder", 
+					data: $('form').serialize(),
+					dataType: 'json',
+					success: function(res) {
+						if(res=='true')
+						{
+							$("#result").html('Success');
+						}
+						else
+						{
+							$("#result").html('Failed');
+						}
+					},
+					error: function(xhr) {
+						$("#result").html('Failed');
+					}
+				});	
+			});
+		});
+
+		function getCustomer()
+		{
+		    $.ajax({
+		        url : 'http://localhost/phpmvc/orders/getorders',
+		        //data:null,
+		        type: 'POST',
+		        
+
+		        success: function(data){
+		            $('#customer').html(data);
+		        }
+		    });
+		}
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
